@@ -37,7 +37,7 @@ body {
   background: var(--color-paper);
   width: 100%;
   max-width: 560px;
-  min-height: 70vh;
+  min-height: calc(100vh - 4rem);
   padding: 3rem 2.5rem 2rem;
   position: relative;
   box-shadow:
@@ -72,8 +72,8 @@ body {
   border-radius: 50%;
   background: var(--color-desk);
   box-shadow:
-    0 calc(70vh * 0.35) 0 var(--color-desk),
-    0 calc(70vh * 0.7) 0 var(--color-desk);
+    0 35vh 0 var(--color-desk),
+    0 70vh 0 var(--color-desk);
 }
 
 /* Rule lines */
@@ -308,7 +308,6 @@ body {
 
 .detail-paper {
   max-width: 620px;
-  min-height: 80vh;
   transform: rotate(0.3deg);
 }
 
