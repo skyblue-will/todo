@@ -571,6 +571,191 @@ body {
   right: 30px;
 }
 
+/* ======================== */
+/* Daily Trackers           */
+/* ======================== */
+
+.tracker-section {
+  margin-top: 1.5rem;
+  padding-top: 0;
+}
+
+.tracker-divider {
+  height: 1px;
+  background: var(--color-ink);
+  opacity: 0.1;
+  margin-bottom: 1.2rem;
+}
+
+.tracker-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.8rem;
+}
+
+.tracker-label {
+  font-family: var(--font-body);
+  font-size: 0.62rem;
+  color: var(--color-ink-light);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  width: 5.5rem;
+  flex-shrink: 0;
+  text-align: right;
+}
+
+.tracker-items {
+  display: flex;
+  gap: 0.35rem;
+  align-items: center;
+}
+
+.tracker-count {
+  font-family: var(--font-body);
+  font-size: 0.62rem;
+  color: var(--color-ink-light);
+  margin-left: 0.3rem;
+  min-width: 1.8rem;
+}
+
+/* Water drops */
+.tracker-drop {
+  width: 26px;
+  height: 34px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.2s ease;
+}
+
+.tracker-drop:hover {
+  transform: scale(1.15);
+}
+
+.tracker-drop:active {
+  transform: scale(0.95);
+}
+
+.drop-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.drop-path {
+  fill: transparent;
+  stroke: var(--color-ink-light);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: fill 0.3s ease, stroke 0.3s ease;
+}
+
+.tracker-drop.filled .drop-path {
+  fill: rgba(100, 160, 210, 0.25);
+  stroke: rgba(70, 130, 180, 0.6);
+}
+
+/* Watercolour fill animation */
+.tracker-drop.filled {
+  animation: waterFill 0.4s ease-out;
+}
+
+@keyframes waterFill {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.2); }
+  60% { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+/* Fruit & veg */
+.tracker-fruit {
+  width: 28px;
+  height: 28px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.2s ease;
+}
+
+.tracker-fruit:hover {
+  transform: scale(1.15);
+}
+
+.tracker-fruit:active {
+  transform: scale(0.95);
+}
+
+.fruit-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.fruit-body {
+  fill: transparent;
+  stroke: var(--color-ink-light);
+  stroke-width: 1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: fill 0.3s ease, stroke 0.3s ease;
+}
+
+.fruit-stem {
+  fill: none;
+  stroke: var(--color-ink-light);
+  stroke-width: 0.8;
+  stroke-linecap: round;
+  transition: stroke 0.3s ease;
+}
+
+.fruit-leaf {
+  fill: transparent;
+  stroke: var(--color-ink-light);
+  stroke-width: 0.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: fill 0.3s ease, stroke 0.3s ease;
+}
+
+.tracker-fruit.filled .fruit-body {
+  fill: rgba(76, 160, 76, 0.2);
+  stroke: rgba(60, 130, 60, 0.55);
+}
+
+.tracker-fruit.filled .fruit-stem {
+  stroke: rgba(90, 120, 60, 0.6);
+}
+
+.tracker-fruit.filled .fruit-leaf {
+  fill: rgba(76, 160, 76, 0.35);
+  stroke: rgba(60, 130, 60, 0.5);
+}
+
+.tracker-fruit.filled {
+  animation: fruitPop 0.35s ease-out;
+}
+
+@keyframes fruitPop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.2) rotate(5deg); }
+  70% { transform: scale(0.95) rotate(-2deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+/* Completion message */
+.tracker-complete {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  color: var(--color-margin);
+  text-align: center;
+  margin-top: 0.3rem;
+  opacity: 0;
+  animation: fadeIn 0.5s ease-out 0.2s forwards;
+  letter-spacing: 0.05em;
+}
+
 /* Responsive */
 @media (max-width: 640px) {
   body { padding: 0.5rem; }

@@ -25,6 +25,16 @@ async function main() {
     ALTER TABLE todos ADD COLUMN IF NOT EXISTS do_now BOOLEAN NOT NULL DEFAULT false
   `;
   console.log("✓ do_now column ensured");
+
+  await sql`
+    CREATE TABLE IF NOT EXISTS daily_trackers (
+      id SERIAL PRIMARY KEY,
+      date DATE NOT NULL UNIQUE,
+      water_count INTEGER NOT NULL DEFAULT 0,
+      fruit_count INTEGER NOT NULL DEFAULT 0
+    )
+  `;
+  console.log("✓ daily_trackers table ensured");
 }
 
 main().catch(console.error);
