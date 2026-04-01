@@ -26,7 +26,7 @@ body {
     radial-gradient(ellipse at 70% 80%, rgba(40,25,15,0.2) 0%, transparent 50%);
   font-family: var(--font-body);
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   min-height: 100vh;
   padding: 2rem;
