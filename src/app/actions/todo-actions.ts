@@ -55,6 +55,15 @@ export async function getTodo(id: number) {
   return todo ?? null;
 }
 
+export async function toggleDoNow(id: number) {
+  const db = getDb();
+  const [todo] = await db.select().from(todos).where(eq(todos.id, id));
+  if (todo) {
+    await db.update(todos).set({ doNow: !todo.doNow }).where(eq(todos.id, id));
+  }
+  revalidatePath("/");
+}
+
 export async function updateTodoNotes(id: number, notes: string) {
   const db = getDb();
   await db.update(todos).set({ notes }).where(eq(todos.id, id));

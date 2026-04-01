@@ -271,6 +271,103 @@ body {
   opacity: 1 !important;
 }
 
+/* Do Now button - circle in the style of the page */
+.do-now-btn {
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--color-ink-light);
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  flex-shrink: 0;
+  position: relative;
+  opacity: 0;
+  transition: opacity 0.15s ease, border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+  margin-bottom: 1px;
+}
+
+.todo-item:hover .do-now-btn {
+  opacity: 0.4;
+}
+
+.do-now-btn:hover {
+  opacity: 0.8 !important;
+  border-color: var(--color-margin);
+  transform: scale(1.15);
+}
+
+/* Inner dot for the "target" look */
+.do-now-btn::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-margin);
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.2s ease;
+}
+
+.do-now-btn:hover::after {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Active "Do Now" state */
+.do-now-btn.active {
+  opacity: 1 !important;
+  border-color: var(--color-margin);
+  background: transparent;
+  animation: doNowPulse 2s ease-in-out infinite;
+}
+
+.do-now-btn.active::after {
+  transform: translate(-50%, -50%) scale(1);
+  background: var(--color-margin);
+}
+
+@keyframes doNowPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(196, 30, 58, 0.3); }
+  50% { box-shadow: 0 0 0 4px rgba(196, 30, 58, 0); }
+}
+
+/* Focused todo item with "Do Now" ring */
+.todo-item.do-now {
+  position: relative;
+  background: rgba(196, 30, 58, 0.03);
+  border-radius: 4px;
+  outline: 1.5px dashed var(--color-margin);
+  outline-offset: 2px;
+  padding-top: 3px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.todo-item.do-now .todo-text {
+  color: var(--color-ink);
+  font-weight: 500;
+}
+
+.todo-item.do-now .todo-num {
+  color: var(--color-margin);
+}
+
+/* "let's do this now" label */
+.todo-item.do-now::after {
+  content: "let's do this now";
+  position: absolute;
+  top: -9px;
+  right: 8px;
+  font-family: var(--font-body);
+  font-size: 0.55rem;
+  color: var(--color-margin);
+  background: var(--color-paper);
+  padding: 0 4px;
+  letter-spacing: 0.06em;
+  opacity: 0.7;
+}
+
 /* Input */
 .add-input {
   width: 100%;

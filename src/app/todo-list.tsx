@@ -8,12 +8,14 @@ import {
   deleteTodo,
   updateTodoText,
   reorderTodos,
+  toggleDoNow,
 } from "./actions/todo-actions";
 
 type Todo = {
   id: number;
   text: string;
   completed: boolean;
+  doNow: boolean;
   position: number;
   createdAt: Date;
 };
@@ -38,6 +40,7 @@ export function TodoList({ initialTodos }: { initialTodos: Todo[] }) {
       id: Date.now(),
       text,
       completed: false,
+      doNow: false,
       position: todos.length,
       createdAt: new Date(),
     };
@@ -85,6 +88,22 @@ export function TodoList({ initialTodos }: { initialTodos: Todo[] }) {
       await updateTodoText(id, text);
     });
   }
+
+  async function handleDoNow(id: number) {
+    setTodos((prev) =>
+      prev.map((t) => (t.id === id ? { ...t, doNow: !t.doNow } : t))
+    );
+    startTransition(async () => {
+      await toggleDoNow(id);
+    });
+  }
+
+  // Sort: doNow items first, then by position
+  const sortedTodos = [...todos].sort((a, b) => {
+    if (a.doNow && !b.doNow) return -1;
+    if (!a.doNow && b.doNow) return 1;
+    return a.position - b.position;
+  });
 
   // Drag and drop
   function handleDragStart(idx: number) {
@@ -167,13 +186,15 @@ export function TodoList({ initialTodos }: { initialTodos: Todo[] }) {
 
   return (
     <div>
-      {todos.map((todo, idx) => (
+      {sortedTodos.map((todo, idx) => (
         <div
           key={todo.id}
           data-todo-idx={idx}
           className={`ruled-line todo-item todo-enter ${
             dragIdx === idx ? "dragging" : ""
-          } ${dragOverIdx === idx && dragIdx !== idx ? "drag-over" : ""}`}
+          } ${dragOverIdx === idx && dragIdx !== idx ? "drag-over" : ""} ${
+            todo.doNow ? "do-now" : ""
+          }`}
           style={{ animationDelay: `${idx * 30}ms` }}
           draggable
           onDragStart={() => handleDragStart(idx)}
@@ -212,6 +233,12 @@ export function TodoList({ initialTodos }: { initialTodos: Todo[] }) {
               {todo.text}
             </span>
           )}
+          <button
+            className={`do-now-btn ${todo.doNow ? "active" : ""}`}
+            onClick={() => handleDoNow(todo.id)}
+            aria-label={todo.doNow ? "Remove focus" : "Do this now"}
+            title={todo.doNow ? "Remove focus" : "Do this now"}
+          />
           <button
             className="todo-edit"
             onClick={(e) => {
