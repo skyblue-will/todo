@@ -1,5 +1,7 @@
 import { notFound } from "next/navigation";
 import { getTodo } from "@/app/actions/todo-actions";
+import { getSubtasks } from "@/app/actions/subtask-actions";
+import { SubtaskList } from "./subtask-list";
 import { NoteEditor } from "./note-editor";
 import Link from "next/link";
 
@@ -9,7 +11,11 @@ export default async function TodoPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const todo = await getTodo(parseInt(id, 10));
+  const todoId = parseInt(id, 10);
+  const [todo, subtasks] = await Promise.all([
+    getTodo(todoId),
+    getSubtasks(todoId),
+  ]);
 
   if (!todo) notFound();
 
@@ -43,15 +49,14 @@ export default async function TodoPage({
 
         <div className="detail-divider" />
 
+        <SubtaskList todoId={todo.id} initialSubtasks={subtasks} />
+
+        <div className="detail-divider" />
+
         <div className="notes-section">
           <h2 className="notes-heading">Notes</h2>
           <NoteEditor todoId={todo.id} initialNotes={todo.notes} />
         </div>
-
-        {/* Ruled lines for the remaining space */}
-        {Array.from({ length: 8 }).map((_, i) => (
-          <div key={`rule-${i}`} className="ruled-line" />
-        ))}
 
         <div className="coffee-ring detail-coffee" aria-hidden="true" />
       </div>

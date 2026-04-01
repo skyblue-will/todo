@@ -27,6 +27,18 @@ async function main() {
   console.log("✓ do_now column ensured");
 
   await sql`
+    CREATE TABLE IF NOT EXISTS subtasks (
+      id SERIAL PRIMARY KEY,
+      todo_id INTEGER NOT NULL,
+      text TEXT NOT NULL,
+      completed BOOLEAN NOT NULL DEFAULT false,
+      position INTEGER NOT NULL,
+      created_at TIMESTAMP NOT NULL DEFAULT NOW()
+    )
+  `;
+  console.log("✓ subtasks table ensured");
+
+  await sql`
     CREATE TABLE IF NOT EXISTS daily_trackers (
       id SERIAL PRIMARY KEY,
       date DATE NOT NULL UNIQUE,

@@ -10,6 +10,15 @@ export const todos = pgTable("todos", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
+export const subtasks = pgTable("subtasks", {
+  id: serial("id").primaryKey(),
+  todoId: integer("todo_id").notNull(),
+  text: text("text").notNull(),
+  completed: boolean("completed").notNull().default(false),
+  position: integer("position").notNull(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
 export const dailyTrackers = pgTable("daily_trackers", {
   id: serial("id").primaryKey(),
   date: date("date").notNull().unique(),

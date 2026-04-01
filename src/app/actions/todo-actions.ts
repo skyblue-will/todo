@@ -22,7 +22,15 @@ export async function toggleTodo(id: number) {
   const db = getDb();
   const [todo] = await db.select().from(todos).where(eq(todos.id, id));
   if (todo) {
-    await db.update(todos).set({ completed: !todo.completed }).where(eq(todos.id, id));
+    const nowCompleted = !todo.completed;
+    await db
+      .update(todos)
+      .set({
+        completed: nowCompleted,
+        // Auto-clear "do now" when completing
+        ...(nowCompleted && todo.doNow ? { doNow: false } : {}),
+      })
+      .where(eq(todos.id, id));
   }
   revalidatePath("/");
 }

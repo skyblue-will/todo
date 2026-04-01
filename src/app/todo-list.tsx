@@ -58,7 +58,16 @@ export function TodoList({ initialTodos }: { initialTodos: Todo[] }) {
 
   async function handleToggle(id: number) {
     setTodos((prev) =>
-      prev.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t))
+      prev.map((t) => {
+        if (t.id !== id) return t;
+        const nowCompleted = !t.completed;
+        return {
+          ...t,
+          completed: nowCompleted,
+          // Auto-clear "do now" on complete
+          doNow: nowCompleted ? false : t.doNow,
+        };
+      })
     );
     startTransition(async () => {
       await toggleTodo(id);
