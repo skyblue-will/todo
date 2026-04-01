@@ -36,9 +36,9 @@ body {
 .paper {
   background: var(--color-paper);
   width: 100%;
-  max-width: 560px;
+  max-width: 600px;
   min-height: calc(100vh - 4rem);
-  padding: 3rem 2.5rem 2rem;
+  padding: 2.5rem 2.5rem 2.5rem 5.5rem;
   position: relative;
   box-shadow:
     0 1px 3px rgba(0,0,0,0.12),
@@ -55,25 +55,25 @@ body {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 72px;
+  left: 4.2rem;
   width: 1px;
   background: var(--color-margin);
-  opacity: 0.5;
+  opacity: 0.4;
 }
 
 /* Punched holes */
 .paper::after {
   content: "";
   position: absolute;
-  left: 24px;
-  top: 15%;
-  width: 16px;
-  height: 16px;
+  left: 1.2rem;
+  top: 12%;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   background: var(--color-desk);
   box-shadow:
-    0 35vh 0 var(--color-desk),
-    0 70vh 0 var(--color-desk);
+    0 30vh 0 var(--color-desk),
+    0 60vh 0 var(--color-desk);
 }
 
 /* Rule lines */
@@ -433,7 +433,6 @@ body {
 /* ======================== */
 
 .detail-paper {
-  max-width: 620px;
   transform: rotate(0.3deg);
 }
 
@@ -445,7 +444,7 @@ body {
   letter-spacing: 0.03em;
   transition: color 0.15s ease;
   display: inline-block;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .back-link:hover {
@@ -453,7 +452,7 @@ body {
 }
 
 .detail-header {
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .detail-status {
@@ -483,8 +482,8 @@ body {
 .detail-divider {
   height: 1px;
   background: var(--color-ink);
-  opacity: 0.15;
-  margin: 1rem 0 1.5rem;
+  opacity: 0.12;
+  margin: 1.5rem 0 1.5rem;
 }
 
 /* Notes section */
@@ -571,7 +570,7 @@ body {
 /* ======================== */
 
 .subtask-section {
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .subtask-header {
@@ -925,12 +924,11 @@ body {
 @media (max-width: 640px) {
   body { padding: 0.5rem; }
   .paper {
-    padding: 2rem 1.5rem 1.5rem;
+    padding: 2rem 1.2rem 1.5rem 3.5rem;
     transform: none;
-    min-height: auto;
   }
-  .paper::before { left: 52px; }
-  .paper::after { left: 14px; }
+  .paper::before { left: 2.8rem; }
+  .paper::after { left: 0.7rem; width: 12px; height: 12px; }
   .paper-title { font-size: 1.7rem; }
   .drag-grip { opacity: 0.3; }
 }

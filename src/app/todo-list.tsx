@@ -273,7 +273,7 @@ export function TodoList({ initialTodos }: { initialTodos: Todo[] }) {
       ))}
 
       {/* Add new item */}
-      <form onSubmit={handleAdd} className="ruled-line" style={{ paddingLeft: "3.2rem" }}>
+      <form onSubmit={handleAdd} className="ruled-line" style={{ paddingLeft: "3rem" }}>
         <input
           ref={inputRef}
           className="add-input"
