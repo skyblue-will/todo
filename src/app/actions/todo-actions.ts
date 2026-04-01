@@ -48,3 +48,15 @@ export async function reorderTodos(orderedIds: number[]) {
   );
   revalidatePath("/");
 }
+
+export async function getTodo(id: number) {
+  const db = getDb();
+  const [todo] = await db.select().from(todos).where(eq(todos.id, id));
+  return todo ?? null;
+}
+
+export async function updateTodoNotes(id: number, notes: string) {
+  const db = getDb();
+  await db.update(todos).set({ notes }).where(eq(todos.id, id));
+  revalidatePath(`/todo/${id}`);
+}

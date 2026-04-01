@@ -292,6 +292,137 @@ body {
   border: 1px solid rgba(139, 90, 43, 0.04);
 }
 
+/* Clickable todo text */
+.todo-text.clickable {
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.todo-text.clickable:hover {
+  color: var(--color-margin);
+}
+
+/* ======================== */
+/* Detail Page              */
+/* ======================== */
+
+.detail-paper {
+  max-width: 620px;
+  min-height: 80vh;
+  transform: rotate(0.3deg);
+}
+
+.back-link {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  color: var(--color-ink-light);
+  text-decoration: none;
+  letter-spacing: 0.03em;
+  transition: color 0.15s ease;
+  display: inline-block;
+  margin-bottom: 1.5rem;
+}
+
+.back-link:hover {
+  color: var(--color-margin);
+}
+
+.detail-header {
+  margin-bottom: 1rem;
+}
+
+.detail-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.detail-label {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  color: var(--color-ink-light);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.detail-title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--color-ink);
+  line-height: 1.15;
+  margin: 0 0 0.4rem;
+  letter-spacing: -0.01em;
+}
+
+.detail-divider {
+  height: 1px;
+  background: var(--color-ink);
+  opacity: 0.15;
+  margin: 1rem 0 1.5rem;
+}
+
+/* Notes section */
+.notes-section {
+  margin-bottom: 0.5rem;
+}
+
+.notes-heading {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  color: var(--color-ink-light);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin: 0 0 0.75rem;
+}
+
+.notes-editor-wrap {
+  position: relative;
+}
+
+.notes-textarea {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: var(--color-ink);
+  line-height: 2.4rem;
+  background: transparent;
+  border: none;
+  outline: none;
+  resize: none;
+  padding: 0;
+  caret-color: var(--color-margin);
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent calc(2.4rem - 1px),
+    var(--color-rule) calc(2.4rem - 1px),
+    var(--color-rule) 2.4rem
+  );
+  background-size: 100% 2.4rem;
+  background-position: 0 0;
+}
+
+.notes-textarea::placeholder {
+  color: var(--color-ink-light);
+  opacity: 0.4;
+  font-style: italic;
+}
+
+.save-indicator {
+  position: absolute;
+  bottom: -1.4rem;
+  right: 0;
+  font-family: var(--font-body);
+  font-size: 0.62rem;
+  color: var(--color-ink-light);
+  opacity: 0.6;
+}
+
+.detail-coffee {
+  bottom: 40px;
+  right: 30px;
+}
+
 /* Responsive */
 @media (max-width: 640px) {
   body { padding: 0.5rem; }

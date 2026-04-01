@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useRef, useTransition, useOptimistic } from "react";
+import { useState, useRef, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import {
   addTodo,
   toggleTodo,
@@ -26,6 +27,7 @@ export function TodoList({ initialTodos }: { initialTodos: Todo[] }) {
   const [dragOverIdx, setDragOverIdx] = useState<number | null>(null);
   const [isPending, startTransition] = useTransition();
   const inputRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
   async function handleAdd(e: React.FormEvent) {
     e.preventDefault();
@@ -204,8 +206,12 @@ export function TodoList({ initialTodos }: { initialTodos: Todo[] }) {
             />
           ) : (
             <span
-              className={`todo-text ${todo.completed ? "completed" : ""}`}
-              onDoubleClick={() => handleEditStart(todo)}
+              className={`todo-text clickable ${todo.completed ? "completed" : ""}`}
+              onClick={() => router.push(`/todo/${todo.id}`)}
+              onDoubleClick={(e) => {
+                e.stopPropagation();
+                handleEditStart(todo);
+              }}
             >
               {todo.text}
             </span>
