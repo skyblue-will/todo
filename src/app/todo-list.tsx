@@ -135,15 +135,19 @@ export function TodoList({ initialTodos }: { initialTodos: Todo[] }) {
       return;
     }
 
-    const reordered = [...todos];
+    // Work on the sorted view (what the user sees)
+    const reordered = [...sortedTodos];
     const [moved] = reordered.splice(dragIdx, 1);
     reordered.splice(targetIdx, 0, moved);
-    setTodos(reordered);
+
+    // Update positions to match new order
+    const withPositions = reordered.map((t, i) => ({ ...t, position: i }));
+    setTodos(withPositions);
     setDragIdx(null);
     setDragOverIdx(null);
 
     startTransition(async () => {
-      await reorderTodos(reordered.map((t) => t.id));
+      await reorderTodos(withPositions.map((t) => t.id));
     });
   }
 
