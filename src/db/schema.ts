@@ -5,6 +5,7 @@ export const todos = pgTable("todos", {
   text: text("text").notNull(),
   notes: text("notes").notNull().default(""),
   completed: boolean("completed").notNull().default(false),
+  doNow: boolean("do_now").notNull().default(false),
   position: integer("position").notNull(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });

@@ -34,7 +34,7 @@ export default async function TodoPage({
               style={{ pointerEvents: "none" }}
             />
             <span className="detail-label">
-              {todo.completed ? "Completed" : "In progress"}
+              {todo.completed ? "Completed" : todo.doNow ? "Doing now" : "In progress"}
             </span>
           </div>
           <h1 className="detail-title">{todo.text}</h1>
