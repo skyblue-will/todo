@@ -220,6 +220,35 @@ body {
   border-radius: 1px;
 }
 
+/* Edit input active state */
+.todo-text.editing {
+  border-bottom: 1px dashed var(--color-margin);
+  margin-bottom: -1px;
+}
+
+/* Edit button */
+.todo-edit {
+  opacity: 0;
+  border: none;
+  background: none;
+  color: var(--color-ink-light);
+  cursor: pointer;
+  font-size: 0.78rem;
+  padding: 0 2px;
+  line-height: 1;
+  transition: opacity 0.15s ease, color 0.15s ease;
+  margin-bottom: 1px;
+}
+
+.todo-item:hover .todo-edit {
+  opacity: 0.4;
+}
+
+.todo-edit:hover {
+  opacity: 0.8 !important;
+  color: var(--color-ink);
+}
+
 /* Delete button */
 .todo-delete {
   opacity: 0;

@@ -194,7 +194,7 @@ export function TodoList({ initialTodos }: { initialTodos: Todo[] }) {
           />
           {editingId === todo.id ? (
             <input
-              className="todo-text"
+              className="todo-text editing"
               value={editText}
               onChange={(e) => setEditText(e.target.value)}
               onBlur={() => handleEditSave(todo.id)}
@@ -208,14 +208,20 @@ export function TodoList({ initialTodos }: { initialTodos: Todo[] }) {
             <span
               className={`todo-text clickable ${todo.completed ? "completed" : ""}`}
               onClick={() => router.push(`/todo/${todo.id}`)}
-              onDoubleClick={(e) => {
-                e.stopPropagation();
-                handleEditStart(todo);
-              }}
             >
               {todo.text}
             </span>
           )}
+          <button
+            className="todo-edit"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleEditStart(todo);
+            }}
+            aria-label="Edit"
+          >
+            &#9998;
+          </button>
           <button
             className="todo-delete"
             onClick={() => handleDelete(todo.id)}
