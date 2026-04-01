@@ -1,26 +1,307 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-desk: #1A1614;
+  --color-paper: #FFF8F0;
+  --color-paper-dark: #F5EDE0;
+  --color-ink: #2D2926;
+  --color-ink-light: #6B6461;
+  --color-rule: #C5D5E4;
+  --color-margin: #C41E3A;
+  --color-strike: #9B9490;
+  --color-highlight: #FFF3C4;
+  --font-display: var(--font-instrument-serif), Georgia, serif;
+  --font-body: var(--font-special-elite), "Courier New", monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html, body {
+  height: 100%;
+  margin: 0;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-desk);
+  background-image:
+    radial-gradient(ellipse at 30% 20%, rgba(60,40,20,0.3) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 80%, rgba(40,25,15,0.2) 0%, transparent 50%);
+  font-family: var(--font-body);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+/* The Paper */
+.paper {
+  background: var(--color-paper);
+  width: 100%;
+  max-width: 560px;
+  min-height: 70vh;
+  padding: 3rem 2.5rem 2rem;
+  position: relative;
+  box-shadow:
+    0 1px 3px rgba(0,0,0,0.12),
+    0 4px 12px rgba(0,0,0,0.15),
+    0 20px 60px rgba(0,0,0,0.25),
+    inset 0 0 80px rgba(0,0,0,0.02);
+  /* Slight rotation for character */
+  transform: rotate(-0.4deg);
+}
+
+/* Red margin line */
+.paper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 72px;
+  width: 1px;
+  background: var(--color-margin);
+  opacity: 0.5;
+}
+
+/* Punched holes */
+.paper::after {
+  content: "";
+  position: absolute;
+  left: 24px;
+  top: 15%;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--color-desk);
+  box-shadow:
+    0 calc(70vh * 0.35) 0 var(--color-desk),
+    0 calc(70vh * 0.7) 0 var(--color-desk);
+}
+
+/* Rule lines */
+.ruled-line {
+  border-bottom: 1px solid var(--color-rule);
+  min-height: 2.4rem;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 3px;
+}
+
+/* Title */
+.paper-title {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  color: var(--color-ink);
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.paper-date {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  color: var(--color-ink-light);
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.05em;
+}
+
+/* Todo items */
+.todo-item {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+  padding-bottom: 3px;
+  cursor: grab;
+  transition: background 0.15s ease;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  margin-left: -0.25rem;
+  margin-right: -0.25rem;
+}
+
+.todo-item:active {
+  cursor: grabbing;
+}
+
+.todo-item.dragging {
+  opacity: 0.4;
+}
+
+.todo-item.drag-over {
+  background: var(--color-highlight);
+}
+
+/* Checkbox - hand drawn circle */
+.todo-check {
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid var(--color-ink);
+  border-radius: 50%;
+  flex-shrink: 0;
+  cursor: pointer;
+  background: transparent;
+  margin-bottom: 2px;
+  position: relative;
+  transition: all 0.15s ease;
+}
+
+.todo-check:hover {
+  border-color: var(--color-margin);
+}
+
+.todo-check.checked {
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+}
+
+.todo-check.checked::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 4px;
+  width: 4px;
+  height: 7px;
+  border: solid var(--color-paper);
+  border-width: 0 1.5px 1.5px 0;
+  transform: rotate(45deg);
+}
+
+/* Todo text */
+.todo-text {
+  flex: 1;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: var(--color-ink);
+  line-height: 1.4;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0;
+}
+
+.todo-text.completed {
+  text-decoration: line-through;
+  color: var(--color-strike);
+}
+
+/* Priority number */
+.todo-num {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  color: var(--color-ink-light);
+  width: 1.2rem;
+  text-align: right;
+  flex-shrink: 0;
+  user-select: none;
+  margin-bottom: 1px;
+}
+
+/* Drag grip */
+.drag-grip {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 4px 2px;
+  cursor: grab;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  margin-bottom: 1px;
+}
+
+.todo-item:hover .drag-grip {
+  opacity: 0.5;
+}
+
+.drag-grip::before,
+.drag-grip::after {
+  content: "";
+  display: block;
+  width: 8px;
+  height: 1.5px;
+  background: var(--color-ink-light);
+  border-radius: 1px;
+}
+
+/* Delete button */
+.todo-delete {
+  opacity: 0;
+  border: none;
+  background: none;
+  color: var(--color-margin);
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0 2px;
+  line-height: 1;
+  transition: opacity 0.15s ease;
+  margin-bottom: 1px;
+}
+
+.todo-item:hover .todo-delete {
+  opacity: 0.6;
+}
+
+.todo-delete:hover {
+  opacity: 1 !important;
+}
+
+/* Input */
+.add-input {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: var(--color-ink);
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0;
+  caret-color: var(--color-margin);
+}
+
+.add-input::placeholder {
+  color: var(--color-ink-light);
+  opacity: 0.5;
+  font-style: italic;
+}
+
+/* Stagger animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.todo-enter {
+  animation: fadeIn 0.25s ease-out forwards;
+}
+
+/* Coffee ring stain */
+.coffee-ring {
+  position: absolute;
+  bottom: 60px;
+  right: 40px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2px solid rgba(139, 90, 43, 0.08);
+  pointer-events: none;
+  transform: rotate(15deg);
+}
+
+.coffee-ring::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid rgba(139, 90, 43, 0.04);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  body { padding: 0.5rem; }
+  .paper {
+    padding: 2rem 1.5rem 1.5rem;
+    transform: none;
+    min-height: auto;
+  }
+  .paper::before { left: 52px; }
+  .paper::after { left: 14px; }
+  .paper-title { font-size: 1.7rem; }
+  .drag-grip { opacity: 0.3; }
 }
